@@ -20,35 +20,47 @@ import java.util.List;
 
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.extension.Extension;
 
-public class DataTable<T> extends Panel implements IResourceListener{
+public class DataTable<T> extends Panel implements IResourceListener {
 
 	private List<Extension> extensions = new ArrayList<Extension>();
-	
+
 	private List<? extends IColumn<T, String>> columns;
-	
-	public DataTable(String id, final List<? extends IColumn<T, String>> columns,
+
+	private WebMarkupContainer table;
+
+	public DataTable(String id,
+			final List<? extends IColumn<T, String>> columns,
 			final IDataProvider<T> dataProvider, final long rowsPerPage) {
 		super(id);
 		this.columns = columns;
+
+		table = new WebMarkupContainer("table");
+		table.setOutputMarkupId(true);
+		add(table);
 	}
-	
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		DataTableResourcesBehavior.attachTo(this);
 	}
-	
-	public void add(Extension extension){
+
+	public void add(Extension extension) {
 		extensions.add(extension);
 	}
 
 	@Override
 	public void onResourceRequested() {
 
+	}
+
+	public String getTableMarkupId() {
+		return table.getMarkupId();
 	}
 }

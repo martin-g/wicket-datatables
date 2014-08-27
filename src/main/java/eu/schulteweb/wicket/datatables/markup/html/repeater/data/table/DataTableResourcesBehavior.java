@@ -66,6 +66,7 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 				}));
 
 		Map<String, Object> variables = new HashMap<String, Object>();
+		variables.put("tableId", dataTable.getTableMarkupId());
 
 		PackageTextTemplate initScript = null;
 		try {
