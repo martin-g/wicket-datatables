@@ -43,6 +43,10 @@ public class DataTable<T> extends Panel implements IResourceListener {
 		table = new WebMarkupContainer("table");
 		table.setOutputMarkupId(true);
 		add(table);
+
+		ColumnView<T, String> columnView = new ColumnView<T, String>("columns",
+				columns);
+		table.add(columnView);
 	}
 
 	@Override
@@ -58,6 +62,10 @@ public class DataTable<T> extends Panel implements IResourceListener {
 	@Override
 	public void onResourceRequested() {
 
+	}
+
+	public CharSequence getCallbackUrl() {
+		return urlFor(IResourceListener.INTERFACE, null);
 	}
 
 	public String getTableMarkupId() {

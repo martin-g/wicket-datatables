@@ -67,6 +67,7 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("tableId", dataTable.getTableMarkupId());
+		variables.put("callbackUrl", dataTable.getCallbackUrl());
 
 		PackageTextTemplate initScript = null;
 		try {
