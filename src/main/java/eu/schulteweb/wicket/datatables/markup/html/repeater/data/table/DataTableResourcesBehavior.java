@@ -15,10 +15,54 @@
  *******************************************************************************/
 package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
 
-public class DataTableResourcesBehavior {
+import java.util.ArrayList;
+import java.util.List;
 
-	public DataTableResourcesBehavior() {
-		// TODO Auto-generated constructor stub
+import org.apache.wicket.Application;
+import org.apache.wicket.Component;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.HeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+
+public class DataTableResourcesBehavior<T> extends Behavior {
+
+	private DataTable<T> dataTable;
+
+	private DataTableResourcesBehavior(DataTable<T> dataTable) {
+		this.dataTable = dataTable;
+		dataTable.add(this);
+	}
+
+	@Override
+	public void renderHead(Component component, IHeaderResponse response) {
+		super.renderHead(component, response);
+
+		response.render(CssHeaderItem.forReference(new CssResourceReference(
+				DataTableResourcesBehavior.class, "css/jquery.dataTables.css")));
+
+		response.render(JavaScriptHeaderItem
+				.forReference(new JavaScriptResourceReference(
+						DataTableResourcesBehavior.class,
+						"js/jquery.dataTables.js") {
+
+					@Override
+					public Iterable<? extends HeaderItem> getDependencies() {
+						List<HeaderItem> dependencies = new ArrayList<HeaderItem>();
+						dependencies.add(JavaScriptHeaderItem
+								.forReference(Application.get()
+										.getJavaScriptLibrarySettings()
+										.getJQueryReference()));
+						return dependencies;
+					}
+				}));
+	}
+
+	public static <T> void attachTo(DataTable<T> dataTable) {
+		new DataTableResourcesBehavior<T>(dataTable);
 	}
 
 }

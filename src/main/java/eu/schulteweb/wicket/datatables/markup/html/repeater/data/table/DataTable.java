@@ -37,6 +37,12 @@ public class DataTable<T> extends Panel implements IResourceListener{
 		this.columns = columns;
 	}
 	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		DataTableResourcesBehavior.attachTo(this);
+	}
+	
 	public void add(Extension extension){
 		extensions.add(extension);
 	}
