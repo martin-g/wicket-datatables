@@ -15,8 +15,11 @@
  *******************************************************************************/
 package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
@@ -25,8 +28,10 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.util.template.PackageTextTemplate;
 
 public class DataTableResourcesBehavior<T> extends Behavior {
 
@@ -59,6 +64,24 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 						return dependencies;
 					}
 				}));
+
+		Map<String, Object> variables = new HashMap<String, Object>();
+
+		PackageTextTemplate initScript = null;
+		try {
+			initScript = new PackageTextTemplate(
+					DataTableResourcesBehavior.class, "js/initScript.js");
+
+			response.render(OnLoadHeaderItem.forScript(initScript
+					.asString(variables)));
+		} finally {
+			if (initScript != null) {
+				try {
+					initScript.close();
+				} catch (IOException e) {
+				}
+			}
+		}
 	}
 
 	public static <T> void attachTo(DataTable<T> dataTable) {
