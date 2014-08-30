@@ -39,8 +39,8 @@ public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 		this.dataProvider = dataProvider;
 	}
 
-	public void getJSONResponse(DataTableRequest request, long first,
-			long count, OutputStream outputStream) {
+	public void getJSONResponse(DataTableRequest request,
+			OutputStream outputStream) {
 		XStream xstream = new XStream(new JsonHierarchicalStreamDriver() {
 
 			@Override
@@ -49,8 +49,10 @@ public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 			}
 		});
 
-		xstream.toXML(new DataTableResponse<T>(iterator(first, count), size(),
-				size(), request.getDraw()), outputStream);
+		xstream.toXML(
+				new DataTableResponse<T>(iterator(request.getStart(),
+						request.getLength()), size(), size(), request.getDraw()),
+				outputStream);
 	}
 
 	@Override

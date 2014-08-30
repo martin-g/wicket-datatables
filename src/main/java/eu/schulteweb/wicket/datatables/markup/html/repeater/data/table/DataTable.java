@@ -74,8 +74,7 @@ public class DataTable<T> extends Panel implements IResourceListener {
 		WebResponse webResponse = (WebResponse) getRequestCycle().getResponse();
 		webResponse.setContentType("application/json");
 
-		dataProvider.getJSONResponse(request, 1, 10,
-				webResponse.getOutputStream());
+		dataProvider.getJSONResponse(request, webResponse.getOutputStream());
 	}
 
 	public CharSequence getCallbackUrl() {
