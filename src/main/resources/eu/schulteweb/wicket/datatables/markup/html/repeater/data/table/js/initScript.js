@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('#${tableId}').dataTable({
 		"processing": true,
         "serverSide": true,
-        "ajax": "${callbackUrl}"
+        "ajax": "${callbackUrl}",
 		"pagingType" : "full_numbers"
 	});
 });

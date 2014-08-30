@@ -23,6 +23,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
+import org.apache.wicket.request.cycle.RequestCycle;
 
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.extension.Extension;
 
@@ -61,6 +62,8 @@ public class DataTable<T> extends Panel implements IResourceListener {
 
 	@Override
 	public void onResourceRequested() {
+		DataTableRequest request = new DataTableRequest(RequestCycle.get()
+				.getRequest());
 
 	}
 
