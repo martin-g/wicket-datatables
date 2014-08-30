@@ -15,18 +15,42 @@
  *******************************************************************************/
 package eu.schulteweb.wicket.datatables.markup.html.repeater.util;
 
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Iterator;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.ISortState;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.model.IModel;
 
-public class JSONProvider<T> implements ISortableDataProvider<T, String>{
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+import com.thoughtworks.xstream.io.json.JsonWriter;
+
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.DataTableRequest;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.DataTableResponse;
+
+public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 
 	private ISortableDataProvider<T, String> dataProvider;
 
-	public JSONProvider(ISortableDataProvider<T, String> dataProvider)  {
+	public JSONProvider(ISortableDataProvider<T, String> dataProvider) {
 		this.dataProvider = dataProvider;
+	}
+
+	public void getJSONResponse(DataTableRequest request, long first,
+			long count, OutputStream outputStream) {
+		XStream xstream = new XStream(new JsonHierarchicalStreamDriver() {
+
+			@Override
+			public HierarchicalStreamWriter createWriter(Writer writer) {
+				return new JsonWriter(writer, JsonWriter.DROP_ROOT_MODE);
+			}
+		});
+
+		xstream.toXML(new DataTableResponse<T>(iterator(first, count), size(),
+				size(), request.getDraw()), outputStream);
 	}
 
 	@Override

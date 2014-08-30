@@ -20,12 +20,14 @@ import java.util.List;
 
 import org.apache.wicket.IResourceListener;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.WebResponse;
 
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.extension.Extension;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.util.JSONProvider;
 
 public class DataTable<T> extends Panel implements IResourceListener {
 
@@ -35,11 +37,15 @@ public class DataTable<T> extends Panel implements IResourceListener {
 
 	private WebMarkupContainer table;
 
+	private JSONProvider<T> dataProvider;
+
 	public DataTable(String id,
 			final List<? extends IColumn<T, String>> columns,
-			final IDataProvider<T> dataProvider, final long rowsPerPage) {
+			final ISortableDataProvider<T, String> dataProvider,
+			final long rowsPerPage) {
 		super(id);
 		this.columns = columns;
+		this.dataProvider = new JSONProvider<T>(dataProvider);
 
 		table = new WebMarkupContainer("table");
 		table.setOutputMarkupId(true);
@@ -65,6 +71,11 @@ public class DataTable<T> extends Panel implements IResourceListener {
 		DataTableRequest request = new DataTableRequest(RequestCycle.get()
 				.getRequest());
 
+		WebResponse webResponse = (WebResponse) getRequestCycle().getResponse();
+		webResponse.setContentType("application/json");
+
+		dataProvider.getJSONResponse(request, 1, 10,
+				webResponse.getOutputStream());
 	}
 
 	public CharSequence getCallbackUrl() {

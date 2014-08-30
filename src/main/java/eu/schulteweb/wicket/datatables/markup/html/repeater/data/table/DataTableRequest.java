@@ -27,4 +27,17 @@ public class DataTableRequest {
 		}
 	}
 
+	public int getDraw() {
+		return request.getRequestParameters().getParameterValue("draw").toInt();
+	}
+
+	public int getStart() {
+		return request.getRequestParameters().getParameterValue("start")
+				.toInt();
+	}
+
+	public int getLength() {
+		return request.getRequestParameters().getParameterValue("length")
+				.toInt();
+	}
 }
