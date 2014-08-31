@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.IResourceListener;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -33,14 +32,14 @@ public class DataTable<T> extends Panel implements IResourceListener {
 
 	private List<Extension> extensions = new ArrayList<Extension>();
 
-	private List<? extends IColumn<T, String>> columns;
+	private List<? extends DataTableColumn<T>> columns;
 
 	private WebMarkupContainer table;
 
 	private JSONProvider<T> dataProvider;
 
 	public DataTable(String id,
-			final List<? extends IColumn<T, String>> columns,
+			final List<? extends DataTableColumn<T>> columns,
 			final ISortableDataProvider<T, String> dataProvider,
 			final long rowsPerPage) {
 		super(id);
@@ -83,5 +82,9 @@ public class DataTable<T> extends Panel implements IResourceListener {
 
 	public String getTableMarkupId() {
 		return table.getMarkupId();
+	}
+
+	public List<? extends DataTableColumn<T>> getColumns() {
+		return columns;
 	}
 }

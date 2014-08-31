@@ -4,13 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": "${callbackUrl}",
         "columns": [
-            { "data": "firstname" }
-/*			{ "data": "lastname" },
-			{ "data": "hr.position" },
-			{ "data": "hr.salary" },
-			{ "data": "hr.startDate" },
-			{ "data": "hr.age" },
-			{ "data": "email" }*/
+${columns}
 		],
 		"pagingType" : "full_numbers"
 	});

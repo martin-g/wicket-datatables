@@ -68,6 +68,7 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("tableId", dataTable.getTableMarkupId());
 		variables.put("callbackUrl", dataTable.getCallbackUrl());
+		variables.put("columns", getColumnExpressions());
 
 		PackageTextTemplate initScript = null;
 		try {
@@ -84,6 +85,24 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 				}
 			}
 		}
+	}
+
+	private String getColumnExpressions() {
+		StringBuffer buffer = new StringBuffer();
+
+		boolean isFirst = true;
+		for (DataTableColumn<T> column : dataTable.getColumns()) {
+			if (isFirst == false) {
+				buffer.append(",\n");
+			}
+
+			buffer.append(String.format("\t\t\t{ \"data\": \"%s\" }",
+					column.getPropertyExpression()));
+
+			isFirst = false;
+		}
+
+		return buffer.toString();
 	}
 
 	public static <T> void attachTo(DataTable<T> dataTable) {
