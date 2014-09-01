@@ -1,4 +1,4 @@
-package com.mycompany;
+package eu.schulteweb.wicket.datatables.examples;
 
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.server.Server;
