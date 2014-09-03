@@ -24,3 +24,7 @@
 
 ### Scroller (extension)
 - [ ] server-side data processing
+- 
+
+### General goals
+- use wicket table stuff (IDataProvider, IColumn,...) as far as possible
