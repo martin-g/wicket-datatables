@@ -7,7 +7,7 @@
 ### Basic features
 - [ ] paging
 - [ ] ordering
-- [ ] info toolbar
+- [ ] tools configuration (dom)
 - [ ] i18n
 
 
