@@ -1,17 +1,17 @@
-package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
+package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network;
 
 import org.apache.wicket.request.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DataTableRequest {
+public class DataRequest {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DataTableRequest.class);
+			.getLogger(DataRequest.class);
 
 	private Request request;
 
-	public DataTableRequest(Request request) {
+	public DataRequest(Request request) {
 		this.request = request;
 
 		if (LOGGER.isDebugEnabled()) {

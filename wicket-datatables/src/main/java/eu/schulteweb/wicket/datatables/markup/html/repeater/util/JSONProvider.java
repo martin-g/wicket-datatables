@@ -28,8 +28,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.json.JsonWriter;
 
-import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.DataTableRequest;
-import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.DataTableResponse;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network.DataRequest;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network.DataResponse;
 
 public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 
@@ -39,7 +39,7 @@ public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 		this.dataProvider = dataProvider;
 	}
 
-	public void getJSONResponse(DataTableRequest request,
+	public void getJSONResponse(DataRequest request,
 			OutputStream outputStream) {
 		XStream xstream = new XStream(new JsonHierarchicalStreamDriver() {
 
@@ -50,7 +50,7 @@ public class JSONProvider<T> implements ISortableDataProvider<T, String> {
 		});
 
 		xstream.toXML(
-				new DataTableResponse<T>(iterator(request.getStart(),
+				new DataResponse<T>(iterator(request.getStart(),
 						request.getLength()), size(), size(), request.getDraw()),
 				outputStream);
 	}

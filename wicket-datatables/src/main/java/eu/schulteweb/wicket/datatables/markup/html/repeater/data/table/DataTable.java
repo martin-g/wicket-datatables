@@ -25,12 +25,14 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebResponse;
 
-import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.extension.Extension;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.basic.Dom;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.basic.Dom.Control;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network.DataRequest;
 import eu.schulteweb.wicket.datatables.markup.html.repeater.util.JSONProvider;
 
 public class DataTable<T> extends Panel implements IResourceListener {
 
-	private List<Extension> extensions = new ArrayList<Extension>();
+	private List<Option> extensions = new ArrayList<Option>();
 
 	private List<? extends DataTableColumn<T>> columns;
 
@@ -43,6 +45,7 @@ public class DataTable<T> extends Panel implements IResourceListener {
 			final ISortableDataProvider<T, String> dataProvider,
 			final long rowsPerPage) {
 		super(id);
+
 		this.columns = columns;
 		this.dataProvider = new JSONProvider<T>(dataProvider);
 
@@ -55,20 +58,29 @@ public class DataTable<T> extends Panel implements IResourceListener {
 		table.add(columnView);
 	}
 
+	protected Configuration getConfiguration() {
+		Configuration configuration = new Configuration();
+
+		configuration.add(new Dom(Control.LENGTH_SELECTOR,
+				Control.PROCESSING_DISPLAY_ELEMENT, Control.FILTER,
+				Control.TABLE, Control.INFO_SUMMARY, Control.PAGINATION));
+
+		return configuration;
+	}
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		DataTableResourcesBehavior.attachTo(this);
 	}
 
-	public void add(Extension extension) {
+	public void add(Option extension) {
 		extensions.add(extension);
 	}
 
 	@Override
 	public void onResourceRequested() {
-		DataTableRequest request = new DataTableRequest(RequestCycle.get()
-				.getRequest());
+		DataRequest request = new DataRequest(RequestCycle.get().getRequest());
 
 		WebResponse webResponse = (WebResponse) getRequestCycle().getResponse();
 		webResponse.setContentType("application/json");

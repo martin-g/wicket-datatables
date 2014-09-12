@@ -1,10 +1,10 @@
-package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
+package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DataTableResponse<T> {
+public class DataResponse<T> {
 
 	private int draw;
 
@@ -14,7 +14,7 @@ public class DataTableResponse<T> {
 
 	private List<T> data = new ArrayList<T>();
 
-	public DataTableResponse(Iterator<? extends T> iterator, long recordsTotal,
+	public DataResponse(Iterator<? extends T> iterator, long recordsTotal,
 			long recordsFiltered, int draw) {
 		while (iterator.hasNext()) {
 			data.add(iterator.next());

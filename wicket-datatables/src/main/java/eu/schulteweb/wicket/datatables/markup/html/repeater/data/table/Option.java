@@ -15,16 +15,13 @@
  *******************************************************************************/
 package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
 
-import java.util.List;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONObject;
 
-import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
+public interface Option {
 
-public class DefaultDataTable<T> extends DataTable<T> {
+	String getName();
 
-	public DefaultDataTable(String id,
-			List<? extends DataTableColumn<T>> columns,
-			ISortableDataProvider<T, String> dataProvider, long rowsPerPage) {
-		super(id, columns, dataProvider, rowsPerPage);
-	}
+	JSONObject getObject() throws JSONException;
 
 }
