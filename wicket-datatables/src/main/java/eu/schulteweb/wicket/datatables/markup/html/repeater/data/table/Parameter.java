@@ -4,6 +4,6 @@ public interface Parameter {
 
 	String getKey();
 
-	String getValue();
+	Object getValue();
 
 }

@@ -15,7 +15,6 @@
  *******************************************************************************/
 package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.IResourceListener;
@@ -31,8 +30,6 @@ import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.network.D
 import eu.schulteweb.wicket.datatables.markup.html.repeater.util.JSONProvider;
 
 public class DataTable<T> extends Panel implements IResourceListener {
-
-	private List<Option> extensions = new ArrayList<Option>();
 
 	private List<? extends DataTableColumn<T>> columns;
 
@@ -72,10 +69,6 @@ public class DataTable<T> extends Panel implements IResourceListener {
 	protected void onInitialize() {
 		super.onInitialize();
 		DataTableResourcesBehavior.attachTo(this);
-	}
-
-	public void add(Option extension) {
-		extensions.add(extension);
 	}
 
 	@Override

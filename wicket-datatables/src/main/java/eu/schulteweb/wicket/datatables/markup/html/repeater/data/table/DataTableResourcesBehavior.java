@@ -33,6 +33,8 @@ import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.util.template.PackageTextTemplate;
 
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.basic.ColumnDefinition;
+
 public class DataTableResourcesBehavior<T> extends Behavior {
 
 	private DataTable<T> dataTable;
@@ -45,6 +47,10 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
+
+		Configuration configuration = dataTable.getConfiguration();
+		configuration.addParameter("ajax", dataTable.getCallbackUrl());
+		configuration.add(new ColumnDefinition(dataTable.getColumns()));
 
 		response.render(CssHeaderItem.forReference(new CssResourceReference(
 				DataTableResourcesBehavior.class, "css/jquery.dataTables.css")));
@@ -67,8 +73,7 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("tableId", dataTable.getTableMarkupId());
-		variables.put("callbackUrl", dataTable.getCallbackUrl());
-		variables.put("columns", getColumnExpressions());
+		variables.put("config", configuration.toString());
 
 		PackageTextTemplate initScript = null;
 		try {
@@ -87,26 +92,7 @@ public class DataTableResourcesBehavior<T> extends Behavior {
 		}
 	}
 
-	private String getColumnExpressions() {
-		StringBuffer buffer = new StringBuffer();
-
-		boolean isFirst = true;
-		for (DataTableColumn<T> column : dataTable.getColumns()) {
-			if (isFirst == false) {
-				buffer.append(",\n");
-			}
-
-			buffer.append(String.format("\t\t\t{ \"data\": \"%s\" }",
-					column.getPropertyExpression()));
-
-			isFirst = false;
-		}
-
-		return buffer.toString();
-	}
-
 	public static <T> void attachTo(DataTable<T> dataTable) {
 		new DataTableResourcesBehavior<T>(dataTable);
 	}
-
 }

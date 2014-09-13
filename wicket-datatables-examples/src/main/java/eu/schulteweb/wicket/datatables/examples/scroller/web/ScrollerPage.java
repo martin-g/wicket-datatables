@@ -1,4 +1,4 @@
-package eu.schulteweb.wicket.datatables.examples.home.web;
+package eu.schulteweb.wicket.datatables.examples.scroller.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +14,12 @@ import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.DataTable
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.ScrollerTable;
 import eu.schulteweb.wicket.datatables.markup.html.repeater.util.SortableListDataProvider;
 
-public class HomePage extends ExamplesPage {
+public class ScrollerPage extends ExamplesPage {
 	private static final long serialVersionUID = 1L;
 
-	public HomePage() {
+	public ScrollerPage() {
 		SortableListDataProvider<Staff> dataProvider = new SortableListDataProvider<Staff>(
-				StaffService.getInstance().findStaff());
+				StaffService.getInstance().generateTestData(5000));
 
 		ScrollerTable<Staff> defaultDataTable = new ScrollerTable<Staff>(
 				"datatable", newColumns(), dataProvider, 10);

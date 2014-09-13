@@ -16,12 +16,11 @@
 package eu.schulteweb.wicket.datatables.markup.html.repeater.data.table;
 
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONObject;
 
 public interface Option {
 
 	String getName();
 
-	JSONObject getObject() throws JSONException;
+	Object getObject() throws JSONException;
 
 }

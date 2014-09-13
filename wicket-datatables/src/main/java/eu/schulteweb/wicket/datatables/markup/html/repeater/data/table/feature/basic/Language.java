@@ -35,7 +35,7 @@ public class Language implements Option {
 	}
 
 	@Override
-	public JSONObject getObject() throws JSONException {
+	public Object getObject() throws JSONException {
 		JSONObject lang = new JSONObject();
 		lang.put("decimal", getValue("decimal"));
 		lang.put("lengthMenu", getValue("lengthMenu"));

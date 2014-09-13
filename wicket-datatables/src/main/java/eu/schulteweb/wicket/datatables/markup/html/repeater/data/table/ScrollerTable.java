@@ -8,6 +8,7 @@ import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.b
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.basic.Dom.Control;
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.basic.Height;
 import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.scroller.Scroller;
+import eu.schulteweb.wicket.datatables.markup.html.repeater.data.table.feature.scroller.ScrollerResourcesBehavior;
 
 public class ScrollerTable<T> extends DataTable<T> {
 
@@ -17,11 +18,17 @@ public class ScrollerTable<T> extends DataTable<T> {
 	}
 
 	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		ScrollerResourcesBehavior.attachTo(this);
+	}
+
+	@Override
 	protected Configuration getConfiguration() {
 		Configuration configuration = new Configuration();
 
 		configuration.add(new Dom(Control.PROCESSING_DISPLAY_ELEMENT,
-				Control.TABLE, Control.INFO_SUMMARY, Control.S));
+				Control.TABLE, Control.INFO_SUMMARY, Control.SCROLLER));
 
 		configuration.add(getHeight());
 

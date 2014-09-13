@@ -16,8 +16,8 @@ public class Height implements Parameter {
 	}
 
 	@Override
-	public String getValue() {
-		return pixelHeight + "";
+	public Object getValue() {
+		return pixelHeight;
 	}
 
 }

@@ -27,7 +27,11 @@ public class Dom implements Parameter {
 
 	public enum Control {
 		LENGTH_SELECTOR("l"), FILTER("f"), TABLE("t"), INFO_SUMMARY("i"), PAGINATION(
-				"p"), PROCESSING_DISPLAY_ELEMENT("r"), S("S");
+				"p"), PROCESSING_DISPLAY_ELEMENT("r"),
+		/**
+		 * Initialize scroller extension. It has to be placed after 't'.
+		 */
+		SCROLLER("S");
 
 		private String key;
 
@@ -52,7 +56,7 @@ public class Dom implements Parameter {
 	}
 
 	@Override
-	public String getValue() {
+	public Object getValue() {
 		String value = "";
 
 		for (Control c : controls) {

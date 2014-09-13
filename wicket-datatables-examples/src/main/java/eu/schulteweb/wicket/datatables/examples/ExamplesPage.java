@@ -11,6 +11,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import eu.schulteweb.wicket.datatables.examples.home.web.HomePage;
+import eu.schulteweb.wicket.datatables.examples.scroller.web.ScrollerPage;
 
 public class ExamplesPage extends WebPage {
 
@@ -25,8 +26,8 @@ public class ExamplesPage extends WebPage {
 
 		navbar.addComponents(NavbarComponents.transform(
 				Navbar.ComponentPosition.LEFT, new NavbarButton<Void>(
-						HomePage.class, Model.of("Basic"))
-						.setIconType(FontAwesomeIconType.check)));
+						ScrollerPage.class, Model.of("Scroller"))
+						.setIconType(FontAwesomeIconType.refresh)));
 
 		navbar.addComponents(NavbarComponents.transform(
 				Navbar.ComponentPosition.LEFT, new NavbarButton<Void>(

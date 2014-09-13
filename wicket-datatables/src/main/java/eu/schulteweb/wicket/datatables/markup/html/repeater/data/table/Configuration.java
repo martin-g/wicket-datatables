@@ -41,8 +41,8 @@ public class Configuration {
 		parameter.add(new Parameter() {
 
 			@Override
-			public String getValue() {
-				return value.toString();
+			public Object getValue() {
+				return value;
 			}
 
 			@Override
@@ -74,4 +74,5 @@ public class Configuration {
 			throw new WicketRuntimeException(e);
 		}
 	}
+
 }

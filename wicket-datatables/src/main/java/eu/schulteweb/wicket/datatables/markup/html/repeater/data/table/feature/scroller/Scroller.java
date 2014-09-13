@@ -19,7 +19,7 @@ public class Scroller implements Option {
 	}
 
 	@Override
-	public JSONObject getObject() throws JSONException {
+	public Object getObject() throws JSONException {
 		JSONObject scroller = new JSONObject();
 		scroller.put("loadingIndicator", showLoadingIndicator);
 		return scroller;

@@ -20,6 +20,18 @@ public class StaffService {
 
 	}
 
+	public List<Staff> generateTestData(int count) {
+		List<Staff> staff = new ArrayList<Staff>();
+
+		for (int i = 0; i < count; i++) {
+			staff.add(newStaff("firstName" + i, "lastName" + i, "position" + i,
+					new BigDecimal(i), new Date(), "office" + i, 31,
+					"test@test.com"));
+		}
+
+		return staff;
+	}
+
 	public List<Staff> findStaff() {
 		List<Staff> staff = new ArrayList<Staff>();
 
