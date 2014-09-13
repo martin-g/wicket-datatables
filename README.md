@@ -7,7 +7,7 @@
 ### Basic features
 - [ ] paging
 - [ ] ordering
-- [ ] tools configuration (dom)
+- [x] tools configuration (dom)
 - [ ] i18n
 
 
@@ -23,7 +23,7 @@
 - [ ] multiple
 
 ### Scroller (extension)
-- [ ] server-side data processing
+- [x] server-side data processing
 
 ### General goals
 - use wicket table stuff (IDataProvider, IColumn,...) as far as possible
